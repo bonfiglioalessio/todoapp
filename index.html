@@ -20,25 +20,91 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
 
     <title>Todo App - Devchallenges</title>
-
   </head>
   <body>
     <div class="max-w-2xl m-auto px-4">
-    <h1 class="text-center my-10 text-4xl font-medium">#todo</h1>
+      <h1 class="text-center my-10 text-4xl font-medium">#todo</h1>
 
-    <ul class="flex justify-between align-center border-b text-center px-6">
-      <li class="p-4">All</li>
-      <li class="p-4">Active</li>
-      <li class="p-4">Completed</li>
-    </ul>
+      <ul class="flex justify-between align-center border-b text-center px-6">
+        <li class="p-4 text-blue-500">All</li>
+        <li class="p-4">Active</li>
+        <li class="p-4">Completed</li>
+      </ul>
 
-    <div class="flex my-4">
-      <input class="w-full border rounded-lg py-4 px-2 border-gray-400 placeholder:font-light" type="text" placeholder="add details">
-      <button type="button" class="bg-blue-500 text-white rounded-lg py-4 px-8 ml-6">Add</button>
+      <div class="flex my-4">
+        <input
+          id="input"
+          class="w-full border rounded-lg py-4 px-2 border-gray-400 placeholder:font-light"
+          type="text"
+          placeholder="add details"
+        />
+        <button
+          type="button"
+          class="bg-blue-500 text-white rounded-lg py-4 px-8 ml-6"
+          onclick="addTodo()"
+          ;
+        >
+          Add
+        </button>
+      </div>
+      <ul id="todo-list">
+        <label class="flex items-center mt-3">
+          <input type="checkbox" class="form-checkbox h-5 w-5" /><span
+            class="ml-2 text-gray-700"
+            >Do coding challenges</span
+          >
+        </label>
+      </ul>
     </div>
-    </div>
+
+    <script>
+      let checkbox = document.getElementsByClassName("form-checkbox");
+
+      function addTodo() {
+        // getValue of inputText
+        var inputVal = document.getElementById("input").value;
+
+        if (inputVal) {
+          // Now create node HTML
+          var label = document.createElement("label");
+          label.classList.add("flex", "items-center", "mt-3");
+          var input = document.createElement("input");
+          input.type = "checkbox";
+          input.classList.add("form-checkbox", "h-5", "w-5");
+          var span = document.createElement("span");
+          span.classList.add("ml-2", "text-gray-700");
+
+          // Text Todo
+          span.innerText = inputVal;
+          label.appendChild(input);
+          label.appendChild(span);
+          var element = document.getElementById("todo-list");
+          element.appendChild(label);
+
+          // Now clear the inputText
+          document.getElementById("input").value = "";
+        } else {
+          alert("Devi prima scrivere il todo!")
+        }
+      }
+
+      Array.from(checkbox).forEach((el) => {
+        el.addEventListener(
+          "click",
+          function (ev) {
+            ev.target.parentNode.classList[
+              ev.target.checked ? "add" : "remove"
+            ]("line-through");
+          },
+          false
+        );
+      });
+    </script>
   </body>
 </html>
